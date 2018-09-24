@@ -15,7 +15,7 @@ RUN echo "$EGGDROP_SHA256  develop.tar.gz" | sha256sum -c -
 RUN tar -zxvf develop.tar.gz
 RUN rm develop.tar.gz
 RUN cd eggdrop-$EGGDROP_COMMIT
-RUN chmod +x ./configure
+RUN chmod 700 configure
 RUN /bin/sh ./configure
 RUN make config
 RUN make
