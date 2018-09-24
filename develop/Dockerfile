@@ -24,10 +24,7 @@ RUN rm -rf eggdrop-$EGGDROP_COMMIT
 RUN mkdir /home/eggdrop/eggdrop/data
 RUN chown -R eggdrop /home/eggdrop/eggdrop
 
-ENV NICK=""
-ENV SERVER=""
 ENV LISTEN="3333"
-ENV OWNER=""
 ENV USERFILE="eggdrop.user"
 ENV CHANFILE="eggdrop.chan"
 
