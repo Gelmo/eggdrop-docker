@@ -6,20 +6,20 @@ RUN useradd eggdrop
 ENV EGGDROP_SHA256 74212f33f8c44be68ea6bd8c41f636620771328f9e8dc1549e218e637efbc9bc
 ENV EGGDROP_COMMIT 83d237a1d82a74dd36c86bacd4b833131143c062
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends wget mysqltcl \
-  && wget "https://github.com/eggheads/eggdrop/archive/$EGGDROP_COMMIT.tar.gz" -O develop.tar.gz \
-  && echo "$EGGDROP_SHA256  develop.tar.gz" | sha256sum -c - \
-  && tar -zxvf develop.tar.gz \
-  && rm develop.tar.gz \
-    && ( cd eggdrop-$EGGDROP_COMMIT \
-    && ./configure \
-    && make config \
-    && make \
-    && make install DEST=/home/eggdrop/eggdrop ) \
-  && rm -rf eggdrop-$EGGDROP_COMMIT \
-  && mkdir /home/eggdrop/eggdrop/data \
-  && chown -R eggdrop /home/eggdrop/eggdrop
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends wget mysqltcl
+RUN wget "https://github.com/eggheads/eggdrop/archive/$EGGDROP_COMMIT.tar.gz" -O develop.tar.gz
+RUN echo "$EGGDROP_SHA256  develop.tar.gz" | sha256sum -c -
+RUN tar -zxvf develop.tar.gz
+RUN rm develop.tar.gz \
+RUN cd eggdrop-$EGGDROP_COMMIT
+RUN /bin/sh ./configure
+RUN make config
+RUN make
+RUN make install DEST=/home/eggdrop/eggdrop
+RUN rm -rf eggdrop-$EGGDROP_COMMIT
+RUN mkdir /home/eggdrop/eggdrop/data
+RUN chown -R eggdrop /home/eggdrop/eggdrop
 
 ENV NICK=""
 ENV SERVER=""
